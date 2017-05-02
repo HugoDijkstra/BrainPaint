@@ -2,7 +2,7 @@
 
 Brainpaint is a version of  brainf*ck for generating images.
 ---
-##Syntax:
+## Syntax:
 
   * +: add 1 to the value of the current byte
   * -: subtract 1 from the current byte

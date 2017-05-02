@@ -7,16 +7,8 @@
 #include <string>
 #include <fstream>
 
-void next();
-void last();
-void add();
-void substract();
-void beginLoop();
-void endLoop();
-void gotoByte();
-void drawPixel();
-void printChar();
 
+// CREDITS: http://www.cplusplus.com/forum/general/6194/
 typedef unsigned char byte;
 typedef struct
 {
@@ -68,20 +60,65 @@ bool write_truecolor_tga(const std::string& filename, RGB_t* data, unsigned widt
 	return true;
 }
 
+// end Credits
 
+//next byte
+void next();
+//last byte
+void last();
+//add one to current byte
+void add();
+//subtract one from current byte
+void substract();
+//start a loop
+void beginLoop();
+//end of a loop, repeat if not ending yet
+void endLoop();
+//draw a pixel using the next 5 bytes [x,y,r,g,b]
+void drawPixel();
+//print current byte char value
+void printChar();
+
+//the current position of the byte we want to use
 int curByte;
+//the bytes we can use
 int bytes[1024];
+//the size and datot of the image we will generate
 RGB_t data[100][100];
+//all the starts of the loops
 std::vector<int> loopBegins;
+//a string which will be filled with all the commands
 std::string commands;
-//std::vector<void(*)()> functions;
+//the current position of the command we are executing in the string
 int commandIndex;
+
 int main()
 {
+	//variable inits
 	commandIndex = 0;
 	commands = "";
-	std::ifstream file("brainfuck.txt");
 	char c = 0;
+	for (int i = 0; i < 1024; i++)
+	{
+		bytes[i] = 0;
+	}
+
+	for (unsigned int i = 0; i < 100; i++)
+	{
+		for (unsigned int j = 0; j < 100; j++)
+		{
+			data[i][j].red = 0;
+			data[i][j].green = 0;
+			data[i][j].blue = 0;
+		}
+	}
+
+	//open the file
+	std::ifstream file("brainfuck.txt");
+	//return if there is no file present
+	if (!file.is_open())
+		return -1;
+	//add all commands to the commans strings
 	while (file.get(c))
 	{
 		switch (c)
@@ -113,22 +150,9 @@ int main()
 		}
 
 	}
+	//close the file
 	file.close();
-	for (int i = 0; i < 1024; i++)
-	{
-		bytes[i] = 0;
-	}
-
-	for (unsigned int i = 0; i < 100; i++)
-	{
-		for (unsigned int j = 0; j < 100; j++)
-		{
-			data[i][j].red = 0;
-			data[i][j].green = 0;
-			data[i][j].blue = 0;
-		}
-	}
-
+	//start executing the commands
 	for (commandIndex = 0; commandIndex < commands.length(); commandIndex++)
 	{
 		switch (commands.at(commandIndex))
@@ -159,6 +183,7 @@ int main()
 			break;
 		}
 	}
+	//output the image
 	write_truecolor_tga("output.tga", (*data), 100, 100);
 	return 0;
 }
@@ -196,24 +221,21 @@ void beginLoop()
 
 void endLoop()
 {
+	//if the current byte is 0 we can leave the loop
 	if (bytes[curByte] == 0)
 	{
 		loopBegins.pop_back();
 	}
 	else
 	{
+		//if the loop isnt done, repeat
 		commandIndex = (loopBegins.back());
 	}
 }
 
-void gotoByte()
-{
-	curByte = bytes[curByte];
-}
-
 void drawPixel()
 {
-	std::cout << "DawPixel" << std::endl;
+	//if the variables get out of range dont try to use them
 	if (curByte + 4 >= 1024)
 		return;
 	int x = bytes[curByte];
@@ -224,7 +246,6 @@ void drawPixel()
 	data[x][y].red = r;
 	data[x][y].blue = b;
 	data[x][y].green = g;
-	std::cout << x << ":" << y << ":" << r << ":" << g << ":" << b << std::endl;
 }
 
 void printChar()
