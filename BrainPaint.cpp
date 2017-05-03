@@ -90,6 +90,7 @@ int commandIndex;
 
 int main()
 {
+	std::cout << "output" << std::endl;
 	//variable inits
 	commandIndex = 0;
 	commands = "";
@@ -103,9 +104,9 @@ int main()
 	{
 		for (unsigned int j = 0; j < 100; j++)
 		{
-			data[i][j].red = 0;
-			data[i][j].green = 0;
-			data[i][j].blue = 0;
+			data[i][j].red = 255;
+			data[i][j].green = 255;
+			data[i][j].blue = 255;
 		}
 	}
 
@@ -113,7 +114,10 @@ int main()
 	std::ifstream file("brainfuck.txt");
 	//return if there is no file present
 	if (!file.is_open())
+	{
+		std::cout << "File not found" << std::endl;
 		return -1;
+	}
 	//add all commands to the commans strings
 	while (file.get(c))
 	{
@@ -179,6 +183,7 @@ int main()
 			break;
 		}
 	}
+	std::cout << "outputting image" << std::endl;
 	//output the image
 	write_truecolor_tga("output.tga", (*data), 100, 100);
 	return 0;
@@ -234,8 +239,8 @@ void drawPixel()
 	//if the variables get out of range dont try to use them
 	if (curByte + 4 >= 1024)
 		return;
-	int x = bytes[curByte];
-	int y = bytes[curByte + 1];
+	int y = bytes[curByte];
+	int x = bytes[curByte + 1];
 	int r = bytes[curByte + 2];
 	int g = bytes[curByte + 3];
 	int b = bytes[curByte + 4];

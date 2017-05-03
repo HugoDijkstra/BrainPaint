@@ -12,3 +12,29 @@ Brainpaint is a version of  brainf*ck for generating images.
  >* ]: end a loop, if the value the of the current byte is 0 then it goes the the next byte, else it will move the the start of the loop
  >* $: take the next 5 bytes and use the to draw a pixel, example bytes:5,5,255,255,255. will draw a white pixel at the 5th row from the top and the side
  >* .: print something in the console
+
+ ### HELLO WORLD!
+ ---
+;H
+$>+<$>+<$>+<$>+<$+>--<$+$+>---<$>+<$>+<$>+<$>+<$>+<$++>----<
+;E
+$>+<$>+<$>+<$>+<$+>----<$+$->++<$+$->++<$+$++>----<
+;L
+$>+<$>+<$>+<$>+<$+$+$+$++>----<
+;L
+$>+<$>+<$>+<$>+<$+$+$+$++>----<
+;O
+$>+<$>+<$>+<$>+<$+$+$+$>-<$>-<$>-<$>-<$-$-$+++++
+;W
+$>+<$>+<$>+<$>+<+$>-<+$+>+<$+>-<$>-<$>-<$>-<$++
+;o
+$>+<$>+<$>+<$>+<$+$+$+$>-<$>-<$>-<$>-<$-$-$++++
+;R
+$>+<$>+<$>+<$>+<$>----<+$+>+<$->+<$+>+<$+>+<$++>----<
+;L
+$>+<$>+<$>+<$>+<$+$+$+$++>----<
+;D
+$>+<$>+<$>+<$>+<$+$+$+>-<$>-<$>-<$>-<-$-$++++
+;!
+$>+<$>+<$>++<$++++>----<
+
