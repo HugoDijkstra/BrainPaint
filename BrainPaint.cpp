@@ -88,7 +88,7 @@ std::string commands;
 //the current position of the command we are executing in the string
 int commandIndex;
 
-int main()
+int main(int argc, char const *argv[])
 {
 	std::cout << "output" << std::endl;
 	//variable inits
@@ -111,11 +111,12 @@ int main()
 	}
 
 	//open the file
-	std::ifstream file("brainfuck.txt");
+	std::ifstream file(argv[1]);
 	//return if there is no file present
 	if (!file.is_open())
 	{
-		std::cout << "File not found" << std::endl;
+		std::cout << "File not found, outputting hello world!" << std::endl;
+		commands = ";H $>+<$>+<$>+<$>+<$+>--<$+$+>---<$>+<$>+<$>+<$>+<$>+<$++>----< ;E $>+<$>+<$>+<$>+<$+>----<$+$->++<$+$->++<$+$++>----< ;L $>+<$>+<$>+<$>+<$+$+$+$++>----< ;L $>+<$>+<$>+<$>+<$+$+$+$++>----< ;O $>+<$>+<$>+<$>+<$+$+$+$>-<$>-<$>-<$>-<$-$-$+++++ ;W $>+<$>+<$>+<$>+<+$>-<+$+>+<$+>-<$>-<$>-<$>-<$++ ;o $>+<$>+<$>+<$>+<$+$+$+$>-<$>-<$>-<$>-<$-$-$++++ ;R $>+<$>+<$>+<$>+<$>----<+$+>+<$->+<$+>+<$+>+<$++>----< ;L $>+<$>+<$>+<$>+<$+$+$+$++>----< ;D $>+<$>+<$>+<$>+<$+$+$+>-<$>-<$>-<$>-<-$-$++++ ;! $>+<$>+<$>++<$++++>----<";
 		return -1;
 	}
 	//add all commands to the commans strings
