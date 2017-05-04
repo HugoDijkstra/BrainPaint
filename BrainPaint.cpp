@@ -72,6 +72,8 @@ void beginLoop();
 void endLoop();
 //draw a pixel using the next 5 bytes [x,y,r,g,b]
 void drawPixel();
+//get Input from console
+void getInput();
 //print current byte char value
 void printChar();
 
@@ -117,9 +119,9 @@ int main(int argc, char const *argv[])
 	{
 		std::cout << "File not found, outputting hello world!" << std::endl;
 		commands = ";H $>+<$>+<$>+<$>+<$+>--<$+$+>---<$>+<$>+<$>+<$>+<$>+<$++>----< ;E $>+<$>+<$>+<$>+<$+>----<$+$->++<$+$->++<$+$++>----< ;L $>+<$>+<$>+<$>+<$+$+$+$++>----< ;L $>+<$>+<$>+<$>+<$+$+$+$++>----< ;O $>+<$>+<$>+<$>+<$+$+$+$>-<$>-<$>-<$>-<$-$-$+++++ ;W $>+<$>+<$>+<$>+<+$>-<+$+>+<$+>-<$>-<$>-<$>-<$++ ;o $>+<$>+<$>+<$>+<$+$+$+$>-<$>-<$>-<$>-<$-$-$++++ ;R $>+<$>+<$>+<$>+<$>----<+$+>+<$->+<$+>+<$+>+<$++>----< ;L $>+<$>+<$>+<$>+<$+$+$+$++>----< ;D $>+<$>+<$>+<$>+<$+$+$+>-<$>-<$>-<$>-<-$-$++++ ;! $>+<$>+<$>++<$++++>----<";
-		return -1;
-	}
+			}
 	//add all commands to the commans strings
+	else
 	while (file.get(c))
 	{
 		switch (c)
@@ -141,6 +143,9 @@ int main(int argc, char const *argv[])
 			break;
 		case ']':
 			commands += c;
+			break;
+		case ',':
+		commands += c;
 			break;
 		case '.':
 			commands += c;
@@ -175,6 +180,9 @@ int main(int argc, char const *argv[])
 			break;
 		case ']':
 			endLoop();
+			break;
+		case ',':
+			getInput();
 			break;
 		case '.':
 			printChar();
@@ -248,6 +256,13 @@ void drawPixel()
 	data[x][y].red = r;
 	data[x][y].blue = b;
 	data[x][y].green = g;
+}
+
+void getInput()
+{
+	char c;
+	c = std::getchar();
+	bytes[curByte] = (int)c;
 }
 
 void printChar()
